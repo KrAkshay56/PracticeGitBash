@@ -1,0 +1,315 @@
+RMGYantra - APP 
+username - rmgyantra
+password - rmgy@9999
+default port - 8084
+url - http://localhost:8084
+
+To run .jar file thru cmd promt:
+java -jar "drag and drop the file path"
+
+If port is busy:
+java -Dserver.port=8085 -jar "drag and drop the file path"
+
+java -jar "drag and drop the file" --spring.datasource.password="password"
+===================================================================================
+Pre-requsities for API Testing
+-> Client server architecture
+-> Knowledge on HTTP protocol/methods
+-> Knowledge of XML and Json
+-> Knowledge of Database
+-> List of APIs
+-> API Document/Functional Spec
+-> API testcases
+-> API Testing Tool - postman/restAssured
+===========================================================================================
+API document:-
+url - http://localhost:8084/swagger-ui.html
+-> Swagger is a tool to develop API document
+-> its a document consisting of base url and list of APIs and operations that can be 
+   performed on API
+
+    Base uri + Endpoint = 1 API 
+    http://localhost:8084 + /addProject = api
+
+-> To verify the data in database 
+- open mysql cmd Line Client
+- use below commands 
+   - use projects;
+   - select * from project;
+==========================================================================================
+RmgYantra - stack of your application/explain 3-tier architecture of your application/
+            explain the technology used in your application
+-> Presentaion Layer/Front End -> React JS
+-> Business Layer / Backend -> Java + SpringBoot
+-> Database Layer / backend -> Mysql
+
+============================================================================================
+Collection in postman:
+---> Collection is a feature in postman where all the requests are maintained
+create a collection in the name SDET31 and create request 
+C-> Create - POST() - 201 Created ---> created a new resource in the database/server
+R-> Read - GET() - 200 OK -----> to read/fetch/retreie the existing resource from the database
+U-> Update - PUT()/PATCH() - 200 OK ----> update/modify the existing resource
+D-> Delete - DELETE() - 204 No Content ----> delete the existing resource from the database 
+===========================================================================================
+Variables in Postman
+-> Global variable:-- scope is in entire work space
+-> Local variable:--- scope is in the request
+-> Environment Variable:--- scope is in entire environment
+-> Collection variable:--- scope is in the collection
+
+all variables in postman should be used with double-curly braces -- {{variable name}}
+==============================================================================================
+Test Snippet in postman
+-> postman provides java script snippets for validation of API test cases
+-> Every script has to be validated for status code, response time, request body etc to ensure
+   the functionality of the API
+
+-> to verify status code-----status code 200
+pm.test("project created successfully with 201 status ", function () {
+    pm.response.to.have.status(201);
+});
+
+-> to verify response Time-------response time less than 200ms
+pm.test("Response time is less than 200ms", function () {
+    pm.expect(pm.response.responseTime).to.be.below(2);
+});
+
+
+-> To verify the status code name------- status code name has a string
+pm.test("Status code name has string", function () {
+    pm.response.to.have.status("Created");
+});
+
+-> To check wheather the expData is present in response body-----response body contains String
+pm.test("Body matches string", function () {
+    pm.expect(pm.response.text()).to.include("Accion");
+});
+
+-> To check the expected Data in a specific location of the response ------ response body-json value check
+pm.test("Get All projects", function () {
+    var jsonData = pm.response.json();
+    pm.expect(jsonData[1].projectId).to.eql("TY_PROJ_1003");
+});
+
+-> To set Collection Variable ---- set collection variable
+pm.collectionVariables.set("randomKey", ran);
+
+============================================================================================
+Random number generation in postman
+-> To send the same request multiple times without changing the request body and to avoid 
+   duplicate data (conficts)
+
+var ran=Math.floor(Math.random()*500); --- generate random number and declare ot as local variable
+
+console.log(ran); ------ print the random number in console
+
+pm.collectionVariables.set("randomKey", ran); --- set random number as a collection variable
+
+===========================================================================================
+Different ways to POST a Request
+-> Using json Object:
+{
+  "createdBy": "Chaitra",
+  "projectName": "SDET31 {{randomKey}}",
+  "status": "On Going",
+  "teamSize": 70
+}
+
+-> Using JSON file
+--- create a json file with necessary data
+--- body -> binary -> provide file
+advantage:- hard coding is avoided
+            data is stored and retrived from external resource
+            Complex data can passed with json file
+Disadvantage:- we cannot append random number into a file
+
+-> UsingForm parameter : Parameter associated with formData in request body
+                    request body is sent in the form of key and value pair
+                    In API Document it will given as (formData)
+
+   Body -> choose form Data and provides key and values
+
+       key               value
+    createdBy           "Chaitra"
+    ProjectName         "TYSS"
+     status             "On going"
+    teamSize              70
+============================================================================================
+Data driven testing using postman
+-> create multiple projects with the same request but different data
+-> we use .csv file for data driven testing
+
+createdBy	projectName	status	  teamSize
+Bharath	        Google	       Created	    30
+Sagar	        Amazon	       Completed    20
+Fernandis	IBM	       On Going	    15
+Roja	        Qualitest      Created	    10
+Prateeth	PlayGames      On Going	     7
+
+save it in .csv extention
+
+============================================================================================
+Complex Request :- request body consisting of complex data types like array, object etc
+
+{
+    "page": 2,
+    "per_page": 6,
+    "total": 12,
+    "total_pages": 2,
+    "data":[
+        {
+            "id": 7,
+            "email": "michael.lawson@reqres.in",
+            "first_name": "Michael",              
+            "last_name": "Lawson",   =>.data[0].last_name
+            "avatar": "https://reqres.in/img/faces/7-image.jpg"
+        },
+        {
+            "id": 8,
+            "email": "lindsay.ferguson@reqres.in",
+            "first_name": Michel                 
+
+            "last_name": "Ferguson",
+            "avatar": "https://reqres.in/img/faces/8-image.jpg"
+        }
+]
+}
+
+Simple Request:- request body does not have complex data types
+
+{
+  "createdBy": "Vaibhav",
+  "projectName": "Sony",
+  "status": "On Going",
+  "teamSize": 1
+}
+
+Complex Response :- response body consists of complex data types
+
+[
+    {
+        "projectId": "TY_PROJ_1002",
+        "projectName": "Chrome",
+        "teamSize": 20,
+        "createdBy": "Pragathi",
+        "createdOn": "28/10/2021",
+        "status": "Completed"
+    },
+    {
+        "projectId": "TY_PROJ_1003",
+        "projectName": "HP",
+        "teamSize": 32,
+        "createdBy": "Bhavin",
+        "createdOn": "28/10/2021",
+        "status": "Created"
+    },
+ ]
+
+Simple response:- response body does not have complex data types
+
+{
+    "msg": "Successfully Added",
+    "projectName": "SDET31 480",
+    "projectId": "TY_PROJ_4202",
+    "createdOn": "29/04/2022"
+}
+
+==========================================================================================
+Questions: 1. How to post complex request?
+              Json File
+              Json Object
+           2. How do u handle complex response?
+              Json path --- json value check is the snippet 
+
+==========================================================================================
+Parameters in PostMan
+Advantages: parameters help to avoid hardcoding of teh data either in Request header or
+            request body.
+
+-> Path parameter: parameter associated with resource path in Web URL 
+                   same request with different endpoints
+                   path parameter is represented using single curly braces - {}
+                   In API Document it will given as (path)
+
+   {{baseURI}}{{port}}projects/:{path} ---- here path is the parameter key
+
+   In path variables
+    key                value
+   {path}            TY_PROJ_1207
+    
+-> Query parameter : parameter associated with query string in Web URL
+                     same request with different search/filter criterias
+                     query parameter is started using question mark ?
+                     In API Document it will given as (query)
+
+   {{baseURI}}api/users?page=3  
+   
+   In query params
+      key               value
+     page                3 
+
+-> Form parameter : Parameter associated with formData in request body
+                    request body is sent in the form of key and value pair
+                    In API Document it will given as (formData)
+
+   Body -> choose form Data and provides key and values
+
+       key               value
+    createdBy           "Chaitra"
+    ProjectName         "TYSS"
+     status             "On going"
+    teamSize              70
+
+=========================================================================================
+Request Chaining:- Capturing the data from one response body and providing it to another 
+                   request as a variable or as parameter is called as request chaining.
+
+--> Step 1: create a project -- post()
+--> Step 2: capture the projectID from response -- json path -- jsonValueCheck snippet
+--> Step 3: Store the projectID in any variable -- set a collection/global variable snippet
+--> Step 4: Use it in another request -- {{variable}} or {parameter}
+          
+Sample:-request 1
+url:- {{baseURI}}{{port}}addProject
+pm.test("Your test name", function () {
+    var jsonData = pm.response.json();
+    var temp=jsonData.projectId;
+    console.log(temp);
+    
+    pm.collectionVariables.set("pid", temp);
+});
+
+Sample:-request 2
+url:- {{baseURI}}{{port}}projects/:{path}
+      {{baseURI}}{{port}}projects/{{pid}}
+
+==========================================================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,140 @@
+
+1) add dependency in pom.xml
+------------------------------
+
+<dependency>
+    <groupId>org.codehaus.jackson</groupId>
+    <artifactId>jackson-mapper-asl</artifactId>
+    <version>1.9.13</version>
+</dependency>
+
+
+
+
+
+2) create pojo(plain old java object) class
+-------------------------------------------
+package pojo;
+
+public class EmployeeDetails {
+String name;
+String empID;
+long[] phoneNumber;
+String emailID;
+
+
+//it is for seriallization
+public EmployeeDetails(String name, String empID, long[] phoneNumber, String emailID) {
+	this.name = name;
+	this.empID = empID;
+	this.phoneNumber = phoneNumber;
+	this.emailID = emailID;
+}
+
+//it is for Deseriallization
+public EmployeeDetails() {
+	
+	
+}
+public String getName() {
+	return name;
+}
+
+public void setName(String name) {
+	this.name = name;
+}
+
+public String getEmpID() {
+	return empID;
+}
+
+public void setEmpID(String empID) {
+	this.empID = empID;
+}
+
+public long[] getPhoneNumber() {
+	return phoneNumber;
+}
+
+
+
+public void setPhoneNumber(long[] phoneNumber) {
+	this.phoneNumber = phoneNumber;
+}
+
+public String getEmailID() {
+	return emailID;
+}
+
+public void setEmailID(String emailID) {
+	this.emailID = emailID;
+}
+
+
+}
+
+
+
+
+
+
+
+3) Seriallization
+------------------
+
+package seriallization;
+
+import java.io.File;
+
+import org.codehaus.jackson.map.ObjectMapper;
+
+import pojo.EmployeeDetails;
+
+public class Serialization {
+	public static void main(String[] args) throws Exception {
+		
+
+	long[] phoneNumber= {1231234,213231,45564};
+	
+	EmployeeDetails details=new EmployeeDetails("abc","ty0001",phoneNumber,"abc@gmail.com");
+	
+	
+	ObjectMapper mapper=new ObjectMapper();
+	mapper.writerWithDefaultPrettyPrinter().writeValue(new File("./empDetail.json"), details);
+	System.out.println("json file created");
+	
+	}
+}
+
+
+
+
+
+
+
+
+
+4) Deseriallization
+--------------------
+
+package deSeriallization;
+
+import java.io.File;
+
+import org.codehaus.jackson.map.ObjectMapper;
+
+import pojo.EmployeeDetails;
+
+public class DeSeriallization {
+		public static void main(String[] args) throws Exception {
+			
+
+		ObjectMapper mapper=new ObjectMapper();
+		EmployeeDetails empDetails = mapper.readValue(new File("./empDetail.json"), EmployeeDetails.class);
+		
+		System.out.println(empDetails.getName());
+		System.out.println(empDetails.getWife());
+		
+		
+	}
+}
