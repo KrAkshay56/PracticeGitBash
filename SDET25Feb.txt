@@ -1,0 +1,264 @@
+Apache poi --Excel -------------->Test script data
+Java --Properties ------------->Common data
+JDBC --database ------------->Common data
+TestngXML --XML ------------->Common data
+Jackson --jason ------------->Common data
+Opencsv --Csv ------------->Common data
+Maven
+
+
+
+
+                              DATABASE
+
+create database dbName; eg create database testyantra;
+drop database dbName; 
+show databases;
+use dbName; eg use testyantra;
+show tables;
+
+create table students_info
+(
+regno Int(10) not null,
+firstname varchar(50),
+middlename varchar(50),
+lastname varchar(50),
+Primary key(regno)
+);
+
+insert into students_info values('1','ram','gowda','h');
+
+insert into students_info values('2','prakash','hindu','h');
+
+insert into students_info values('3','zam','christ','h');
+
+insert into students_info values('4','nithesh','christ','h');
+
+select * from students_info;
+
+
+SDET28Feb
+
+Scenario1 Create organization with mandatory fields
+Scenario2 launch the browser login to vtiger create organization choose industry type as health care from drop down save it logout close the browser
+Scenario3 Create contact with mandatory fields 
+Scenario4 Create contact and choose the organization save it logout close the browser
+Scenario5 navigate to product create product with mandatory fields
+Scenario6 Create Campaign and choose the product
+
+
+SDET4Mar
+
+Identify 1st row 2nd column
+//table[@class='lvt small']/tbody/tr[3]/td[2]
+
+Identify 2st row 4th column
+//table[@class='lvt small']/tbody/tr[4]/td[4]
+
+Identify last row last column
+//table[@class='lvt small']/tbody/tr[last()]/td[last()]
+
+Identify each data of 2nd record
+//table[@class='lvt small']/tbody/tr[4]/td[*]
+
+Identify all the data of the table
+//table[@class='lvt small']/tbody/tr[*]/td[*]
+
+Identify the commission of single user pack
+//table[@class='lvt small']/tbody/tr[contains(.,'Single User Pack')]/td[5]
+
+Find the commission of all records
+//table[@class='lvt small']/tbody/tr[*]/td[5]
+
+
+22/03/2021
+maven build life cycle
+
+1 mvn clean   clear all the older reports/files from the project
+2 mvn validate   it will validate the framework, it w
+3 mvn compile
+4 mvn test
+5 mvn package
+6 mvn install
+7 mvn deploy
+
+preconditions to execute framework from cmd
+
+1 it should be a maven project
+2 maven command line plugin
+3 all the scripts should be in src/test/java folder
+4 all scripts name should end with 'Test'
+
+how to execute entire framework from command line
+ traverse to project folder and use command-->mvn test
+
+how to execute single test case from command prompt
+ mvn -Dtest=classname test
+ mvn -Dtest=classname#methodname test
+
+execute only one testng.xml file from command prompt
+ use surefire plugin
+add tags <configuration>
+		<suiteXmlFiles>
+			<suiteXmlFile></suiteXmlFile>
+		</suiteXmlFiles>
+	</configuration>
+
+if we have multiple testng.xml file how to execute
+ profiling
+mvn test -P idName
+
+run time parameter from command prompt
+mvn -Dkey=value
+System.getProperty("key")
+
+mvn -Dtest=LoginTest -Dbrowser=chrome -Durl=http://localhost:8888/ -Dusername=admin -Dpassword=root test
+
+
+
+GITHUB(version control tool, soucre code tool, configuration tool, code management tool)
+TOKEN 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
+
+case1-share the project to github globar repo very first time
+1 create a repo in github
+2 go to eclipse->right click on project->teams->share project->give local system path
+ (so that one copy of project is stored i n local system c>user>git)
+3 right click -> team ->commit_>select req files from unstaged changes to staged changes -> provide commit msg-> click on commit nd push->provide git repo
+ url username and bearer token->preview->next->push->close
+
+case2-share the changes to github global repository
+1 right click on project->team->team->commit->select req files from unstagged changes to stagged changes->provide commit msg->
+
+GIT commands:
+1 commit->the code will be copied into local repo(.git folder) from working directory
+2 push ->code will be copied from local repo(.git folder) to global repo(github)
+3 import + clone -> first time when you have to get the project from global repo we have to use import + clone
+  import + clone URI
+4 pull-> when we have already imported and cloned the project into working directory, if we want only the changes/modifications done on that project,then we
+  have to use pull. pull command will get only the modifications.
+
+GIT FOLDER - CONSISTS OF ALL PROJECTS IMPORTED FROM GITHUB
+.GIT FOLDER - ACTS AS A LOCAL REPOSITORY TO A PARTICULAR PROJECT
+
+GIT-Conflict:- when multiple enggs are working on the same project, when one engg commit and pushes the code to github, no issues will arise but if the
+second engg tries to push the code without pulling,he will get a conflict- branch will regect the push. this state is called as git conflict.
+
+Solution:- 
+step1 pull the framework
+step2 remove unwanted comments
+step3 analyse the code
+step4 push the code
+
+How to avoid git conflict
+Always pull before commit and push
+
+push to branch
+What is branch in github?
+when multiple engg are working on the same project,every testscript has to be pushed individually in the different branches in order to avoid conflict.
+Later after review each branch will be merged with master branch.
+Merge-> merge command will merge one branch at a time with master
+Rebase-> merge multiple branch with the master
+
+pull request-> it acts like a intimation to the manager lead/reviewer that a branch has been created and it has to be reviewed berfore merging
+ into the master
+fork-> taking a copy of repo from one github acc to another github acc
+
+
+
+C:\ProgramData\Jenkins\.jenkins\secrets\initialAdminPassword
+950510b8d2ac45bca65ff58cf45af1cc
+
+
+
+Extent  Reports
+
+dependency-->com.avenstact ==>mvn repo
+
+
+Locators
+
+how to inspect
+ctrl+shift+i or F2 function
+
+id-> unique for each web element if provided
+name-> unique name is given for web element
+class name-> we dont recommend to use becoz of duplicate class name
+tag name-> we dont reccomend to use becoz of duplicate tag name 
+linktext-> locator used to identify the links in webpage designed using anchor tag <a>visible text</a>
+		along with this we have hotspot reference that is href that has link
+partial linktext->
+css selector-> syntax 
+css selector is faster than xpath because all the css property is stored in separate file so css selector will search the element in that file.
+we can traverse from parent to child ,vise versa in not possible(child to parent)
+
+xpath
+
+xpath functions
+text()
+contains()
+last()
+
+how to identify all the links 
+//a	*//a	(//a)
+no of visible text
+//text()	(//text())
+no of link text and visible text
+//*text()
+how to identify last link
+(//a)[last()]
+how to identify element in any position
+(//a)[position()=10]
+how to identify only even position links
+(//a)[position mod 2=0]
+how to identify only odd position links
+(//a)[position mod 2=1]
+
+//div[not(@id='abc')]
+//div[normalize-space(text())='Rankings']->it will capture visible text containing spaces
+
+xpath by axis
+parent
+child
+ancestor
+descendant
+following-sibling
+preceding-sibling
+following
+preceding
+
+
+(//div[contains(@class,'WHN')])[position()=1]
+
+//div[text()='APPLE iPhone SE (Black, 128 GB)']/../..//div[contains(@class,'WHN')]
+
+
+//div[text()='APPLE iPhone X (Silver, 64 GB)']/ancestor::div[@class='_3pLy-c row']/descendant::div[contains(@class,'WHN')]
+//div[text()='Customer Ratings']/following::div[@title='2★ & above']/descendant::div[@class='_24_Dny']
+//div[text()='APPLE iPhone X (Silver, 64 GB)']/ancestor::div[@class='_3pLy-c row']/descendant::div[@class='_2ZdXDB']
+//b[text()='Organization Information']/preceding::input[@title='Save [Alt+S]']
+//div[text()='March 2022']/ancestor::div[@class='DayPicker-Month']/descendant::p[text()='31']
+
+
+//div[text()='round trip']/ancestor::div[contains(@class,'css-1dbjc4n r-1awozwy')]/descendant::*[name()='svg'] spicejet
+
+//span[text()='Apple iPhone 11 (64GB) - White']/ancestor::div[@class='a-section a-spacing-small a-spacing-top-small']/descendant::span[@class='a-offscreen'] amazon
+//table[@class='table']/tbody/tr[@class='table-body']/descendant::span[text()='India']/ancestor::tr[@class='table-body']/descendant::td[@class='table-body__cell u-text-right rating'] icc
+
+//table[@class='table']/tbody/tr[10]/td
+//table[@class='table']/tbody/tr[*]/td
+//table[@class='table']/tbody/tr[*]/td[last()]
+//table[@class='table']/tbody/tr[10]/td[last()]
+//table[@class='table']/tbody/tr[last()]/td
+//table[@class='table']/tbody/tr[last()-1]/td
+//table[@class='table']/tbody/tr[last()-1]/td[2]
+//table[@class='table']/tbody/tr[*]/td[last()-1]
+
+//a[text()='Ray ban'] lenskart
+
+
+
+
+
+
+
+
